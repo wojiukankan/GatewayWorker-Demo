@@ -47,6 +47,7 @@
             'type' :'message',
             'value':$("#text").val(),
         };
+        console.log(value);
         ws.send(value);
     });
     function getName(data) {
