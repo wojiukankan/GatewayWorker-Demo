@@ -51,7 +51,7 @@
         if(!$.cookie('name')){
             var name = prompt('请输入昵称');
             if(name){
-                $.post("{:url('index')}", {client_id: data.client_id,name:name}, function(data){}, 'json');
+                $.post("{:url('index')}", {client_id: data.client_id,name:name}, function(){}, 'json');
             }else{
                 return false;
             }
