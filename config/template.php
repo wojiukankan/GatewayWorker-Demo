@@ -33,7 +33,7 @@ return [
     // 标签库标签结束标记
     'taglib_end'   => '}',
     'tpl_replace_string'  =>  [
-        '__STATIC__'=>'/public/static',
-        '__JS__' => '/public/static/js',
+        '__STATIC__'=>'/static',
+        '__JS__' => '/static/js',
     ]
 ];
