@@ -20,6 +20,7 @@ class Events {
     public static function onMessage($client_id, $param) {
         // 向发送人发送
         var_dump($param);
+        Gateway::sendToAll($param);
         $data = json_decode($param);
         var_dump($data);
         if($data['type'] == 'init'){
