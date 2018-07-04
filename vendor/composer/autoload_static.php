@@ -36,11 +36,13 @@ class ComposerStaticInit5a1dab0f837f58907dd60c34aba89bbc
         ),
         'Workerman\\' => 
         array (
-            0 => __DIR__ . '/..' . '/workerman/workerman-for-win',
+            0 => __DIR__ . '/..' . '/workerman/workerman',
+            1 => __DIR__ . '/..' . '/workerman/workerman-for-win',
         ),
         'GatewayWorker\\' => 
         array (
-            0 => __DIR__ . '/..' . '/workerman/gateway-worker-for-win/src',
+            0 => __DIR__ . '/..' . '/workerman/gateway-worker/src',
+            1 => __DIR__ . '/..' . '/workerman/gateway-worker-for-win/src',
         ),
     );
 
