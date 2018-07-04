@@ -47,22 +47,12 @@
             'type' :'message',
             'value':$("#text").val(),
         };
-        console.log(value);
-        ws.send(value);
+        ws.send(JSON.stringify(value));
     });
     function getName(data) {
         var name = prompt('请输入昵称');
         var value={client_id: data.client_id,name:name,type:'init'}
-        console.log(JSON.stringify(value));
         ws.send(JSON.stringify(value));
-        // if(!$.cookie('name')){
-        //     var name = prompt('请输入昵称');
-        //     if(name){
-        //         $.post("{:url('index')}", {client_id: data.client_id,name:name}, function(){}, 'json');
-        //     }else{
-        //         return false;
-        //     }
-        // }
     }
 </script>
 </html>

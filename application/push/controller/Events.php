@@ -19,9 +19,7 @@ class Events {
      */
     public static function onMessage($client_id, $param) {
         // 向发送人发送
-        var_dump($param->type);
         $data = json_decode($param,true);
-        var_dump($data);
         if($data['type'] == 'init'){
             $uid = time().rand(10000,99999);
             Gateway::bindUid($client_id, $uid);
