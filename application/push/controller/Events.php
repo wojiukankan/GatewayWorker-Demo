@@ -27,10 +27,10 @@ class Events {
             Gateway::bindUid($client_id, $uid);
             $_SESSION['uid'] =$uid;
             $_SESSION['name']=$data['name'];
-            $message = json_encode(array('type' => 'success', 'data' => '用户"'.$data['name'].'"已登录！'));
+            $message = json_encode(array('type' => 'login', 'data' => '用户"'.$data['name'].'"已登录！'));
             Gateway::sendToAll($message);
         }else{
-            $message = json_encode(array('type' => 'success', 'data' => '用户"'.$_SESSION['name'].'":'.$data['value']));
+            $message = json_encode(array('type' => 'message', 'data' => '用户"'.$_SESSION['name'].'":'.$data['value']));
             Gateway::sendToAll($message);
         }
     }
