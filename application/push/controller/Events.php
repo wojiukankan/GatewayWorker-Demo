@@ -24,8 +24,8 @@ class Events {
             $uid = time().rand(10000,99999);
             Gateway::bindUid($client_id, $uid);
             $_SESSION['uid'] =$uid;
-            $_SESSION['name']=$data['name'];
             $data['name'] = $data['name']?$data['name']:'匿名';
+            $_SESSION['name']=$data['name'];
             $message = json_encode(array('type' => 'login', 'data' => '用户"'.$data['name'].'"已登录！'));
             Gateway::sendToAll($message);
         }else{
