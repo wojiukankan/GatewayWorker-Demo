@@ -31,7 +31,6 @@
             // Events.php中返回的init类型的消息，将client_id发给后台进行uid绑定
             case 'init':
                 // 利用jquery发起ajax请求，将client_id发给后端进行uid绑定
-                // $.post("{:url('index')}", {client_id: data.client_id}, function(data){}, 'json');
                 getName();
                 break;
             case 'ping':
@@ -52,9 +51,8 @@
         if(!$.cookie('name')){
             var name = prompt('请输入昵称');
             if(name){
-                console.log(1);
+                $.post("{:url('index')}", {client_id: data.client_id,name:name}, function(data){}, 'json');
             }else{
-                console.log(2);
                 return false;
             }
         }
