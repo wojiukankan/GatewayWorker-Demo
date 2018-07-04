@@ -40,22 +40,27 @@
             default :
                 var html = '<p>' + data.data + '</p>';
                 $("#content").append(html);
-            // alert(e.data);
         }
     };
     $("#btn").on('click', function () {
-        var value = $("#text").val();
+        var value = {
+            'type' :'message',
+            'value':$("#text").val(),
+        };
         ws.send(value);
-    })
+    });
     function getName(data) {
-        if(!$.cookie('name')){
-            var name = prompt('请输入昵称');
-            if(name){
-                $.post("{:url('index')}", {client_id: data.client_id,name:name}, function(){}, 'json');
-            }else{
-                return false;
-            }
-        }
+        var name = prompt('请输入昵称');
+        var value={client_id: data.client_id,name:name,type:'init'}
+        ws.send(value);
+        // if(!$.cookie('name')){
+        //     var name = prompt('请输入昵称');
+        //     if(name){
+        //         $.post("{:url('index')}", {client_id: data.client_id,name:name}, function(){}, 'json');
+        //     }else{
+        //         return false;
+        //     }
+        // }
     }
 </script>
 </html>

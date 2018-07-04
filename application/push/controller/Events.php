@@ -19,11 +19,17 @@ class Events {
      */
     public static function onMessage($client_id, $message) {
         // 向发送人发送
-        var_dump($_SESSION);
-        $message = json_encode(array('type' => 'success', 'data' => '用户"'.$_SESSION['name'].'":'.$message));
-        // 向任意uid的网站页面发送数据
-//            Gateway::sendToUid($uid, $message);
-        Gateway::sendToAll($message);
-//        Gateway::sendToClient($client_id, json_encode(array('type' => 'send', 'data' => '你说:' . $message)));
+        $data = json_decode($message);
+        if($data['type'] == 'init'){
+            $uid = time().rand(10000,99999);
+            Gateway::bindUid($client_id, $uid);
+            $_SESSION['uid'] =$uid;
+            $_SESSION['name']=$data['name'];
+            $message = json_encode(array('type' => 'success', 'data' => '用户"'.$data['name'].'"已登录！'));
+            Gateway::sendToAll($message);
+        }else{
+            $message = json_encode(array('type' => 'success', 'data' => '用户"'.$_SESSION['name'].'":'.$message));
+            Gateway::sendToAll($message);
+        }
     }
 }
