@@ -14,6 +14,7 @@ class Bind {
             $uid = time().rand(10000,99999);
             $_SESSION['uid']=$uid;
             $_SESSION['name']=$name;
+            var_dump($_SESSION);
             Gateway::bindUid($client_id, $uid);
             $message = json_encode(array('type' => 'success', 'data' => '用户"'.$name.'"已登录！'));
             // 向任意uid的网站页面发送数据
