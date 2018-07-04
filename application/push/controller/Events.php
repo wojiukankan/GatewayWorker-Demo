@@ -20,6 +20,10 @@ class Events {
     public static function onMessage($client_id, $message) {
         // 向发送人发送
         var_dump($message);
-        Gateway::sendToClient($client_id, json_encode(array('type' => 'send', 'data' => '你说:' . $message)));
+        $message = json_encode(array('type' => 'success', 'data' => '用户"'.$_SESSION['name'].'":'.$message));
+        // 向任意uid的网站页面发送数据
+//            Gateway::sendToUid($uid, $message);
+        Gateway::sendToAll($message);
+//        Gateway::sendToClient($client_id, json_encode(array('type' => 'send', 'data' => '你说:' . $message)));
     }
 }
