@@ -53,8 +53,8 @@
     function getName(data) {
         var name = prompt('请输入昵称');
         var value={client_id: data.client_id,name:name,type:'init'}
-        console.log(value);
-        ws.send(value);
+        console.log(JSON.stringify(value));
+        ws.send(JSON.stringify(value));
         // if(!$.cookie('name')){
         //     var name = prompt('请输入昵称');
         //     if(name){
