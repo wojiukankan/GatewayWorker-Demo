@@ -12,6 +12,7 @@
 <input type="button" id="btn" value="发送">
 </body>
 <script src="__STATIC__/js/jquery-3.3.1.min.js"></script>
+<script src="__STATIC__/js/jquery.cookie.js"></script>
 <script>
     /**
      * 与GatewayWorker建立websocket连接，域名和端口改为你实际的域名端口，
@@ -30,7 +31,8 @@
             // Events.php中返回的init类型的消息，将client_id发给后台进行uid绑定
             case 'init':
                 // 利用jquery发起ajax请求，将client_id发给后端进行uid绑定
-                $.post("{:url('index')}", {client_id: data.client_id}, function(data){}, 'json');
+                // $.post("{:url('index')}", {client_id: data.client_id}, function(data){}, 'json');
+                getName();
                 break;
             case 'ping':
                 // 利用jquery发起ajax请求，将client_id发给后端进行uid绑定
@@ -46,5 +48,10 @@
         var value = $("#text").val();
         ws.send(value);
     })
+    function getName() {
+        if(!$.cookie('name')){
+            prompt('123');
+        }
+    }
 </script>
 </html>

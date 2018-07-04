@@ -20,6 +20,7 @@ class Bind {
 //            Gateway::sendToGroup($group, $message);
         } else {
             return view();
+
         }
     }
 }
