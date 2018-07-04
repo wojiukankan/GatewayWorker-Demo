@@ -50,7 +50,13 @@
     })
     function getName() {
         if(!$.cookie('name')){
-            prompt('123');
+            var name = prompt('请输入昵称');
+            if(name){
+                console.log(1);
+            }else{
+                console.log(2);
+                return false;
+            }
         }
     }
 </script>
