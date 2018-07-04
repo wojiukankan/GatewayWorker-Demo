@@ -17,10 +17,10 @@ class Events {
      * @param int $client_id 连接id
      * @param string $message 具体消息
      */
-    public static function onMessage($client_id, $message) {
+    public static function onMessage($client_id, $param) {
         // 向发送人发送
-        var_dump($message);
-        $data = json_decode($message);
+        var_dump($param);
+        $data = json_decode($param);
         var_dump($data);
         if($data['type'] == 'init'){
             $uid = time().rand(10000,99999);
@@ -30,7 +30,7 @@ class Events {
             $message = json_encode(array('type' => 'success', 'data' => '用户"'.$data['name'].'"已登录！'));
             Gateway::sendToAll($message);
         }else{
-            $message = json_encode(array('type' => 'success', 'data' => '用户"'.$_SESSION['name'].'":'.$message['value']));
+            $message = json_encode(array('type' => 'success', 'data' => '用户"'.$_SESSION['name'].'":'.$data['value']));
             Gateway::sendToAll($message);
         }
     }
