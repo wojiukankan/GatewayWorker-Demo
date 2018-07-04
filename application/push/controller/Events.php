@@ -28,7 +28,7 @@ class Events {
             $message = json_encode(array('type' => 'success', 'data' => '用户"'.$data['name'].'"已登录！'));
             Gateway::sendToAll($message);
         }else{
-            $message = json_encode(array('type' => 'success', 'data' => '用户"'.$_SESSION['name'].'":'.$message['message']));
+            $message = json_encode(array('type' => 'success', 'data' => '用户"'.$_SESSION['name'].'":'.$message['value']));
             Gateway::sendToAll($message);
         }
     }
