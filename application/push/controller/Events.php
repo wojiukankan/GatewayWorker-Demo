@@ -19,9 +19,9 @@ class Events {
      */
     public static function onMessage($client_id, $message) {
         // 向发送人发送
-        dump($message);
+        var_dump($message);
         $data = json_decode($message);
-        dump($data);
+        var_dump($data);
         if($data['type'] == 'init'){
             $uid = time().rand(10000,99999);
             Gateway::bindUid($client_id, $uid);
