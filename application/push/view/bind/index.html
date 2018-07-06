@@ -28,11 +28,6 @@
 
 <script>
     ws = new WebSocket("ws://tp.testtp.top:8282");
-    ws.onopen = function () {
-        // alert("连接成功");
-        //ws.send('tom');
-        //alert("给服务端发送一个字符串：tom");
-    };
     ws.onmessage = function (e) {
         //alert("收到服务端的消息：" + e.data);
         var jsonobj = eval('(' + e.data + ')');
@@ -60,9 +55,9 @@
             var r = confirm(msg + ',play again?');
             if (r) {
                 window.location.reload(true);
-                return;
+                return false;
             } else {
-                return;
+                return false;
             }
         }
     };
