@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <script type="text/javascript" src="__STATIC__/js/jquery-3.3.1.min.js"></script>
+    <title>五子棋</title>
 </head>
 <body>
 <h3 class="player">玩家</h3>
@@ -25,7 +24,8 @@
         ?>
 
 </table>
-
+</body>
+<script type="text/javascript" src="__STATIC__/js/jquery-3.3.1.min.js"></script>
 <script>
     ws = new WebSocket("ws://tp.testtp.top:8282");
     ws.onmessage = function (e) {
@@ -36,7 +36,7 @@
             $('.player').html(jsonobj.data.name);
         }
 
-        if (jsonobj.status == 2) {//
+        if (jsonobj.status == 2) {
             var type = jsonobj.data.type;
             var press_i = jsonobj.data.press_i;
             var press_j = jsonobj.data.press_j;
@@ -49,8 +49,7 @@
                 $(id).css('background', '#ffbc00');
             }
         }
-
-        if (jsonobj.status == 3) {//
+        if (jsonobj.status == 3) {
             var msg = jsonobj.msg;
             var r = confirm(msg + ',play again?');
             if (r) {
@@ -60,12 +59,12 @@
                 return false;
             }
         }
+
     };
+
     function press_on(value) {
         var send = '{"status":2,"data":"' + value.id + '"}';
         ws.send(send);
     }
 </script>
-
-</body>
 </html>
