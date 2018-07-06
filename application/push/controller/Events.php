@@ -6,11 +6,13 @@ class Events {
 
     // 当有客户端连接时，将client_id返回，让mvc框架判断当前uid并执行绑定
     public static function onConnect($client_id) {
+        \think\facade\Cache::set(123,123);
         //生成uid、昵称并绑定
         Gateway::sendToClient($client_id, json_encode(array(
             'type' => 'init',
             'client_id' => $client_id,
-            'name' => 'Player'.Gateway::getAllClientIdCount()
+            'name' => 'Player'.Gateway::getAllClientIdCount(),
+            'cc' => \think\facade\Cache::get(123)
         )));
     }
 
