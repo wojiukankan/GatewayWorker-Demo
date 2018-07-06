@@ -1,69 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>聊天室</title>
+    <title></title>
+    <script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
 </head>
-<style type="text/css">
-
-    p,input {
-        font-size: 50px;
-        line-height: 50px;
-        margin: 5 auto;
-    }
-
-</style>
 <body>
-<div id="content">
+<h3 class="player">玩家</h3>
+<table border="1">
+    <?php
+    for ($i = 0;$i <= 15; $i++) {
+    ?>
+    <tr>
+        <?php
+        for ($j = 0; $j <= 15; $j++) {
+            ?>
+        <td style="width: 40px;height: 40px;position: relative;" id="<?php echo $i;?>_<?php echo $j;?>"
+            onclick="press_on(this)">
+            <div style="background:#000000;width: 20px;height: 20px;position: absolute;border-radius: 50%;display: none;left: 10px;bottom: 10px"
+                 id="div_<?php echo $i;?>_<?php echo $j;?>"></div>
+        </td>
+        <?php
+        }
+        }
+        ?>
 
-</div>
-<div style="margin: 0 auto;height: 50px">
-    <input type="text" id="text" style="width: 50%">
-    <input type="button" id="btn" value="发送">
-</div>
-</body>
-<script src="__STATIC__/js/jquery-3.3.1.min.js"></script>
-<script src="__STATIC__/js/jquery.cookie.js"></script>
+</table>
+
 <script>
-    /**
-     * 与GatewayWorker建立websocket连接，域名和端口改为你实际的域名端口，
-     * 其中端口为Gateway端口，即start_gateway.php指定的端口。
-     * start_gateway.php 中需要指定websocket协议，像这样
-     * $gateway = new Gateway(websocket://0.0.0.0:7272);
-     */
     ws = new WebSocket("ws://tp.testtp.top:8282");
-    // 服务端主动推送消息时会触发这里的onmessage
-    ws.onmessage = function(e){
-        console.log(e);
-        // json数据转换成js对象
-        var data = JSON.parse(e.data);
-        var type = data.type || '';
-        switch(type){
-            // Events.php中返回的init类型的消息，将client_id发给后台进行uid绑定
-            case 'init':
-                // 利用jquery发起ajax请求，将client_id发给后端进行uid绑定
-                getName(data);
-                break;
-            case 'ping':
-                // 利用jquery发起ajax请求，将client_id发给后端进行uid绑定
-                break;
-            // 当mvc框架调用GatewayClient发消息时直接alert出来
-            default :
-                var html = '<p>' + data.data + '</p>';
-                $("#content").append(html);
+    ws.onopen = function () {
+        // alert("连接成功");
+        //ws.send('tom');
+        //alert("给服务端发送一个字符串：tom");
+    };
+    ws.onmessage = function (e) {
+        //alert("收到服务端的消息：" + e.data);
+        var jsonobj = eval('(' + e.data + ')');
+        if (jsonobj.status == 1 && jsonobj.data.name != null) {//初始化名字
+            alert(jsonobj.data.name);
+            $('.player').html(jsonobj.data.name);
+        }
+
+        if (jsonobj.status == 2) {//
+            var type = jsonobj.data.type;
+            var press_i = jsonobj.data.press_i;
+            var press_j = jsonobj.data.press_j;
+            id = '#div_' + press_i + '_' + press_j;
+            $(id).css('display', 'block');
+            if (type == 1) {
+                $(id).css('background', '#000000');
+            }
+            if (type == 2) {
+                $(id).css('background', '#ffbc00');
+            }
+        }
+
+        if (jsonobj.status == 3) {//
+            var msg = jsonobj.msg;
+            var r = confirm(msg + ',play again?');
+            if (r) {
+                window.location.reload(true);
+                return;
+            } else {
+                return;
+            }
         }
     };
-    $("#btn").on('click', function () {
-        var value = {
-            'type' :'message',
-            'value':$("#text").val(),
-        };
-        ws.send(JSON.stringify(value));
-    });
-    function getName(data) {
-        var name = prompt('请输入昵称');
-        var value={client_id: data.client_id,name:name,type:'init'}
-        ws.send(JSON.stringify(value));
+    function press_on(value) {
+        var send = '{"status":2,"data":"' + value.id + '"}';
+        ws.send(send);
     }
 </script>
+
+</body>
 </html>

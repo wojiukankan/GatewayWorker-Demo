@@ -11,7 +11,7 @@ www  WEB部署目录（或者子目录）
 │  ├─push        模块目录
 │  │  ├─controller      控制器目录
 │  │  │  ├─Events.php  业务处理类
-│  │  │  ├─start_*.php workerman启动
+│  │  │  ├─start_*.php workerman启动文件
 │  │  ├─view            视图目录
 ├─start.php               命令行入口文件
 ~~~

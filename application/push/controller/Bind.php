@@ -25,6 +25,39 @@ class Bind {
         } else {
             return view();
 
+
         }
+    }
+
+    private $config = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+    public function aaa(){
+
+        $num = request()->param('num');
+        $array = array();
+        $array1 = array();
+        $m = intval($num/count($this->config));
+        $n = $num%count($this->config);
+        for($i = 0;$i<$m;$i++){
+            foreach ($this->config as $k => $item){
+                if(isset($this->config[$i-1])){
+                    $array[] = $this->config[$i-1].$item;
+                }else{
+                    $array[] = $item;
+                }
+            }
+        }
+        foreach ($this->config as $k => $v){
+            if($k<$n){
+                if(isset($this->config[$m-1])){
+                    $array1[] = $this->config[$m-1].$v;
+                }else{
+                    $array1[] = $v;
+                }
+            }else{
+                break;
+            }
+        }
+        $data = array_merge($array,$array1);
+        dump($data);
     }
 }
