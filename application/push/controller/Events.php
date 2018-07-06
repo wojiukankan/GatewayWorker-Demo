@@ -4,15 +4,16 @@ use \GatewayWorker\Lib\Gateway;
 
 class Events {
 
-    public $uid = 0;
+    protected $uid = 0;
     // 当有客户端连接时，将client_id返回，让mvc框架判断当前uid并执行绑定
     public static function onConnect($client_id) {
         //生成uid、昵称并绑定
-        $this->uid++;
+        $class = new Events();
+        $class->uid++;
         Gateway::sendToClient($client_id, json_encode(array(
             'type' => 'init',
             'client_id' => $client_id,
-            'name' => 'Player'.$this->uid
+            'name' => 'Player'.$class->uid
         )));
     }
 
