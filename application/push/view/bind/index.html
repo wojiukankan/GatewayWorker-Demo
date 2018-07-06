@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>五子棋</title>
+    <title></title>
+    <script type="text/javascript" src="__STATIC__/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 <h3 class="player">玩家</h3>
@@ -24,18 +25,27 @@
         ?>
 
 </table>
-</body>
-<script type="text/javascript" src="__STATIC__/js/jquery-3.3.1.min.js"></script>
-<script>
-    ws = new WebSocket("ws://tp.testtp.top:8282");
-    ws.onmessage = function (e) {
-        console.log(e);
-        var jsonobj = eval('(' + e.data + ')');
-        if (jsonobj.status == 1 && jsonobj.data.name != null) {//初始化名字
-            alert(jsonobj.data.name);
-            $('.player').html(jsonobj.data.name);
-        }
 
+<script>
+    ws = new WebSocket("ws://127.0.0.1:8282");
+    ws.onopen = function () {
+        // alert("连接成功");
+        //ws.send('tom');
+        //alert("给服务端发送一个字符串：tom");
+    };
+    ws.onmessage = function (e) {
+        //alert("收到服务端的消息：" + e.data);
+        var jsonobj = eval('(' + e.data + ')');
+        console.log(jsonobj);
+        // if (jsonobj.status == 1 && jsonobj.data.name != null) {
+        //     //初始化名字
+        //     console.log(jsonobj.data.name);
+        //     alert(jsonobj.data.name);
+        //     $('.player').html(jsonobj.data.name);
+        // }
+        // if (jsonobj.status == 0 && jsonobj.data.text != null) {
+        //     alert(jsonobj.data.text);
+        // }
         if (jsonobj.status == 2) {
             var type = jsonobj.data.type;
             var press_i = jsonobj.data.press_i;
@@ -49,22 +59,24 @@
                 $(id).css('background', '#ffbc00');
             }
         }
+
         if (jsonobj.status == 3) {
             var msg = jsonobj.msg;
             var r = confirm(msg + ',play again?');
             if (r) {
                 window.location.reload(true);
-                return false;
+                return;
             } else {
-                return false;
+                return;
             }
         }
-
     };
-
     function press_on(value) {
-        var send = '{"status":2,"data":"' + value.id + '"}';
-        ws.send(send);
+        var send = {status:2,data:value.id};
+        console.log(send);
+        ws.send(JSON.stringify(send));
     }
 </script>
+
+</body>
 </html>
