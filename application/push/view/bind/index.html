@@ -29,7 +29,7 @@
 <script>
     ws = new WebSocket("ws://tp.testtp.top:8282");
     ws.onmessage = function (e) {
-        //alert("收到服务端的消息：" + e.data);
+        console.log(e);
         var jsonobj = eval('(' + e.data + ')');
         if (jsonobj.status == 1 && jsonobj.data.name != null) {//初始化名字
             alert(jsonobj.data.name);
