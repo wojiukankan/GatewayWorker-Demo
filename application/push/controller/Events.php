@@ -111,25 +111,24 @@ class Events {
             0 => array('index' => $j, 'border' => $global_j), //,
             1 => array('index' => $i, 'border' => $global_i) //上下
         );
-        for ($round = 0; $round < 1; $round++) {
+        for ($round = 0; $round <= 1; $round++) {
             $mov1_num = 1;
             $mov2_num = 1;
             while (true) {
                 $mov1 = $a[$round]['index'] + $mov1_num;
                 $mov2 = $a[$round]['index'] - $mov2_num;
-                echo "'cs'$mov1,$mov2,$count\n";
                 $temp_mov1 = $temp_mov2 = -1;
                 if ($mov1_num > 0) {
                     if ($round == 0 && $mov1 <= $global_j) {
                         $temp_mov1 = $qipan[$i][$mov1];
-                        var_dump($i . ',' . $mov1 . ',' . $temp_mov1);
+//                        var_dump($i . ',' . $mov1 . ',' . $temp_mov1);
                     } elseif ($round == 1 && $mov1 <= $global_i) {
                         $temp_mov1 = $qipan[$mov1][$j];
                     }
 
                     if ($temp_mov1 == $temp_type) {
                         $count++;
-                        var_dump('count=' . $count);
+//                        var_dump('count=' . $count);
                         $mov1_num++;
                     } else {
                         $mov1_num = 0;
@@ -142,12 +141,13 @@ class Events {
                 if ($mov2 >= 0 && $mov2_num > 0) {
                     if ($round == 0) {
                         $temp_mov2 = $qipan[$i][$mov2];
-                        var_dump($i . ',' . $mov2 . ',' . $temp_mov1);
+//                        var_dump($i . ',' . $mov2 . ',' . $temp_mov1);
                     } elseif ($round == 1) {
                         $temp_mov2 = $qipan[$mov2][$j];
                     }
                     if ($temp_mov2 == $temp_type) {
                         $count++;
+//                        var_dump('count=' . $count);
                         $mov2_num++;
                     } else {
                         $mov2_num = 0;

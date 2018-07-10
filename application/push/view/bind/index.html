@@ -27,7 +27,7 @@
 </table>
 
 <script>
-    ws = new WebSocket("ws://127.0.0.1:8282");
+    ws = new WebSocket("ws://tp.testtp.top:8282");
     ws.onopen = function () {
         // alert("连接成功");
         //ws.send('tom');
@@ -36,16 +36,15 @@
     ws.onmessage = function (e) {
         //alert("收到服务端的消息：" + e.data);
         var jsonobj = eval('(' + e.data + ')');
-        console.log(jsonobj);
-        // if (jsonobj.status == 1 && jsonobj.data.name != null) {
-        //     //初始化名字
-        //     console.log(jsonobj.data.name);
-        //     alert(jsonobj.data.name);
-        //     $('.player').html(jsonobj.data.name);
-        // }
-        // if (jsonobj.status == 0 && jsonobj.data.text != null) {
-        //     alert(jsonobj.data.text);
-        // }
+        if (jsonobj.status == 1 && jsonobj.data.name != null) {
+            //初始化名字
+            console.log(jsonobj.data.name);
+            alert(jsonobj.data.name);
+            $('.player').html(jsonobj.data.name);
+        }
+        if (jsonobj.status == 0 && jsonobj.data.text != null) {
+            alert(jsonobj.data.text);
+        }
         if (jsonobj.status == 2) {
             var type = jsonobj.data.type;
             var press_i = jsonobj.data.press_i;
@@ -56,13 +55,13 @@
                 $(id).css('background', '#000000');
             }
             if (type == 2) {
-                $(id).css('background', '#ffbc00');
+                $(id).css('background', '#ff000d');
             }
         }
 
         if (jsonobj.status == 3) {
             var msg = jsonobj.msg;
-            var r = confirm(msg + ',play again?');
+            var r = confirm(msg + ',再来一局?');
             if (r) {
                 window.location.reload(true);
                 return;
