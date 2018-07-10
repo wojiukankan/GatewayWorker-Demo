@@ -2,7 +2,7 @@ ThinkPHP 5.1 + GatewayWorker的demo
 ===============
 转自https://my.oschina.net/u/2394701/blog/860269
 ===============
-原文用workerman写的，我用tp5+GatewayWorker重写了一遍
+原文用workerman写的，我用thinkphp5.1+GatewayWorker重写了一遍
 ## 目录结构
 
 初始的目录结构如下：
